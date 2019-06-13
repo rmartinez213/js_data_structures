@@ -3,7 +3,7 @@ const Menu = require('./LinkedListMenu');
 const inquirer = require('inquirer');
 const LinkedListQuestion = require('./LinkedListQuestion');
 
-console.log(Menu.call())
+//console.log(Menu.call())
 var menuQuestion = LinkedListQuestion.call();
 
 
@@ -13,79 +13,82 @@ MenuDialogue();
 function MenuDialogue() {
 
     inquirer
-        .prompt(menuQuestion[0])
+        .prompt([{
+            type: 'list',
+            name: 'choice',
+            message: 'What seletion from the menu would you like to make? ',
+            choices: [
+                '1 - Append Node',
+                '2 - Prepend Node',
+                '3 - Remove Node (by value)',
+                '4 - Remove Node (by index)',
+                '5 - Contains',
+                '6 - Size',
+                '7 - isEmpty',
+                '8 - Print List',
+                new inquirer.Separator()
+            ]
+        }])
         .then(answers => {
-            console.log(answers.menuInput);
+            var ansOutput = answers.choice.substring(0, 2);
 
-            if (answers.menuInput == 1) {
+            if (ansOutput == 1) {
 
                 inquirer
                     .prompt(menuQuestion[1])
                     .then(answers => {
-                        console.log(answers.menuInput1);
                         linkedList.append(answers.menuInput1);
-                        console.log(linkedList);
+                        console.log(linkedList.printLinkedList() + '\n');
 
-                        console.log(Menu.call());
                         MenuDialogue();
                     })
-            } else if (answers.menuInput == 2) {
+            } else if (ansOutput == 2) {
                 inquirer
                     .prompt(menuQuestion[2])
                     .then(answers => {
-                        console.log(answers.menuInput2);
                         linkedList.prepend(answers.menuInput2);
-                        console.log(linkedList);
-
-                        console.log(Menu.call());
+                        console.log(linkedList.printLinkedList() + '\n');
+                        
                         MenuDialogue();
                     })
-            } else if (answers.menuInput == 3) {
+            } else if (ansOutput == 3) {
                 inquirer
                     .prompt(menuQuestion[3])
                     .then(answers => {
-                        console.log(answers.menuInput3);
                         linkedList.removeNodeVal(answers.menuInput3);
-                        console.log(linkedList);
-
-                        console.log(Menu.call());
+                        console.log(linkedList.printLinkedList() + '\n');
+                        
                         MenuDialogue();
                     })
-            } else if (answers.menuInput == 4) {
+            } else if (ansOutput == 4) {
                 inquirer.prompt(menuQuestion[4])
                     .then(answers => {
-                        console.log(answers.menuInput4);
                         linkedList.removeNodeValIndex(answers.menuInput4);
-                        console.log(linkedList);
-
-                        console.log(Menu.call());
+                        console.log(linkedList.printLinkedList() + '\n');
+                        
                         MenuDialogue();
                     })
-            } else if (answers.menuInput == 5) {
+            } else if (ansOutput == 5) {
                 inquirer
                     .prompt(menuQuestion[5])
                     .then(answers => {
                         console.log(linkedList.contains(answers.menuInput5));
-
-                        console.log(Menu.call());
+                        
                         MenuDialogue();
                     })
-            } else if (answers.menuInput == 6) {
-                console.log('This is the size of the linked list: ' + linkedList.size());
-
-                console.log(Menu.call());
+            } else if (ansOutput == 6) {
+                console.log('Size: ' + linkedList.size() + '\n');
+                
                 MenuDialogue();
-            } else if (answers.menuInput == 7) {
-                console.log(linkedList.isEmpty());
-
-                console.log(Menu.call());
+            } else if (ansOutput == 7) {
+                console.log(linkedList.isEmpty() + '\n');
+                
                 MenuDialogue();
-            } else if (answers.menuInput == 8) {
-                linkedList.printLinkedList();
-
-                console.log(Menu.call());
+            } else if (ansOutput == 8) {
+                console.log(linkedList.printLinkedList() + '\n');
+                
                 MenuDialogue();
-            } else if (answers.menuInput == 9) {
+            } else if (ansOutput == 9) {
                 console.log('Closing program');
                 process.exit();
             } else {

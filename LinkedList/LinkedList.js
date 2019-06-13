@@ -121,17 +121,17 @@ class LinkedList {
 
     printLinkedList() {
         var current = this.head;
-        var str = '';
+        var str = '[';
 
         if (this.isEmpty()) {
-            console.log('[]')
-            return;
+            str += ']'
+            return str;
         }
 
         while (current !== null) {
 
             if (current.next === null) {
-                str += current.data;
+                str += current.data + ']';
             }
             else {
                 str += current.data + ', '
@@ -139,7 +139,7 @@ class LinkedList {
 
             current = current.next;
         }
-        console.log('[' + str + ']');
+        return str;
     }
 }
 
