@@ -1,7 +1,6 @@
 const LinkedList = require('./LinkedList');
-const Menu = require('./LinkedListMenu');
-const inquirer = require('inquirer');
 const LinkedListQuestion = require('./LinkedListQuestion');
+const inquirer = require('inquirer');
 
 //console.log(Menu.call())
 var menuQuestion = LinkedListQuestion.call();
@@ -26,7 +25,9 @@ function MenuDialogue() {
                 '6 - Size',
                 '7 - isEmpty',
                 '8 - Print List',
-                new inquirer.Separator()
+                '9 - Total instances',
+                '10 - Close Application',
+                new inquirer.Separator(),
             ]
         }])
         .then(answers => {
@@ -55,17 +56,48 @@ function MenuDialogue() {
                 inquirer
                     .prompt(menuQuestion[3])
                     .then(answers => {
-                        linkedList.removeNodeVal(answers.menuInput3);
-                        console.log(linkedList.printLinkedList() + '\n');
-                        
-                        MenuDialogue();
+
+                        if (linkedList.nodeValInstances(answers.menuInput3) > 1) {
+                            inquirer
+                                .prompt({
+                                    type: 'list',
+                                    name: 'choiceInp',
+                                    message: 'Multiple instances found, would you like to delete them all? ',
+                                    choices: [
+                                        'Yes',
+                                        'No'
+                                    ]
+                                })
+                                .then(answers2 => {
+                                    if (answers2.choiceInp == 'Yes') {
+                                        console.log('All nodes removed')
+                                        linkedList.removeAllNodesVal(answers.menuInput3);
+                                        console.log(linkedList.printLinkedList() + '\n');
+
+                                        MenuDialogue();
+                                    }
+                                    else {
+                                        console.log('First node removed');
+                                        linkedList.removeNodeVal(answers.menuInput3);
+                                        console.log(linkedList.printLinkedList() + '\n');
+
+                                        MenuDialogue();
+                                    }
+                                })
+                        }
+                        else {
+                            linkedList.removeNodeVal(answers.menuInput3);
+                            console.log(linkedList.printLinkedList() + '\n');
+
+                            MenuDialogue();
+                        }
                     })
             } else if (ansOutput == 4) {
                 inquirer.prompt(menuQuestion[4])
                     .then(answers => {
                         linkedList.removeNodeValIndex(answers.menuInput4);
                         console.log(linkedList.printLinkedList() + '\n');
-                        
+
                         MenuDialogue();
                     })
             } else if (ansOutput == 5) {
@@ -89,6 +121,15 @@ function MenuDialogue() {
                 
                 MenuDialogue();
             } else if (ansOutput == 9) {
+                inquirer
+                    .prompt(menuQuestion[6])
+                    .then(answers => {
+                        console.log(linkedList.nodeValInstances(answers.menuInput6) + ' instances -> For the value of ' + answers.menuInput6 + '\n');
+
+                        MenuDialogue();
+                    })
+
+            } else if (ansOutput == 10) {
                 console.log('Closing program');
                 process.exit();
             } else {

@@ -1,3 +1,16 @@
+const inquirer = require('inquirer')
+const LinkedListQuestions = require('./LinkedListQuestion');
+
+var menuQuestions = LinkedListQuestions.call();
+
+/*
+ * To do: create a random function linked list that adds values based on users input 
+ * 
+ * The current variable is pointer / referance
+ * The head is considered a pointer as well
+*/
+
+
 class LinkedList {
     constructor() {
         this.head = null;
@@ -119,6 +132,28 @@ class LinkedList {
         prev.next = current.next;
     }
 
+    removeAllNodesVal(val) {
+        
+        var current = this.head;
+        var prev = null;
+        
+
+        while (current !== null) {
+            if (current.data == val) {
+                if (prev !== null)
+                    prev.next = current.next;
+                else
+                    this.head = current.next;
+                current = current.next;
+            }
+
+            else {
+                prev = current;
+                current = current.next;
+            }
+        }
+    }
+
     printLinkedList() {
         var current = this.head;
         var str = '[';
@@ -140,6 +175,24 @@ class LinkedList {
             current = current.next;
         }
         return str;
+    }
+
+    nodeValInstances(val) {
+        if (this.isEmpty()) {
+            return 0;
+        }
+
+        var current = this.head;
+        var count = 0;
+
+        while (current !== null) {
+            if (current.data === val) {
+                ++count;
+            }
+            current = current.next;
+        }
+
+        return count;
     }
 }
 

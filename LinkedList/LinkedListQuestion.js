@@ -35,6 +35,18 @@ function questions() {
             type: 'input',
             name: 'menuInput5',
             message: "[Contains] What node value would you like search for? "
+        },
+
+        {
+            type: 'input',
+            name: 'menuInput6',
+            message: 'What value would you like to see how many instances there are? '
+        },
+
+        {
+            type: 'confirm',
+            name: 'menuConfirm',
+            message: 'Multiple instances found, would you like to delete them all? '
         }
     ]
 
