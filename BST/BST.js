@@ -45,7 +45,6 @@ class BST{
 				}
 			}
 		}
-
 		insertNode(this.root)
 	}
 
@@ -55,7 +54,6 @@ class BST{
 		while (current.left !== null) {
 			current = current.left;
 		}
-
 		return current.value;
 	}
 
@@ -65,7 +63,6 @@ class BST{
 		while (current.right !== null) {
 			current = current.right;
 		}
-
 		return current.value;
 	}
 
@@ -82,7 +79,6 @@ class BST{
 			else if (value > current.value)
 				current = current.right;
 		}
-
 		return false;
 	}
 
@@ -103,7 +99,6 @@ class BST{
 		}
 
 		traverse(this.root);
-
 		return result;
 	}
 
@@ -142,15 +137,82 @@ class BST{
 
 		traverse(this.root);
 		return result;
-	}
+    }
+
+    LeftView() {
+        var result = [];
+        var current = this.root
+
+        while (current !== null) {
+            if (current.left !== null) {
+                result.push(current.value)
+                current = current.left;
+            }
+
+            else if (current.right !== null) {
+                result.push(current.value);
+                current = current.right;
+            }
+
+            else {
+                result.push(current.value)
+                break;
+            }
+        }
+        return result;
+    }
+
+    RightView() {
+        var result = [];
+        var current = this.root;
+
+        while (current !== null) {
+
+            if (current.right !== null) {
+                result.push(current.value);
+                current = current.right;
+            }
+            else if (current.left !== null) {
+                result.push(current.value);
+                current = current.left;
+            }
+            else {
+                result.push(current.value);
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    LeafNodes() {
+        var result = [];
+
+        var traverse = node => {
+            if (node.left !== null)
+                traverse(node.left);
+
+            if (node.right !== null)
+                traverse(node.right);
+
+            if (node.left === null && node.right === null)
+                result.push(node.value);
+        }
+
+        traverse(this.root);
+        return result;
+    }
 }
 
 
 var bst = new BST();
-bst.insert(4)
-bst.insert(2)
-bst.insert(8)
-bst.insert(3)
+bst.insert(4);
+bst.insert(2);
+bst.insert(8);
+bst.insert(3);
+bst.insert(10);
+bst.insert(9);
+bst.insert(1);
 console.log(bst.min());
 console.log(bst.max());
 
@@ -160,3 +222,7 @@ console.log(bst.bfsPostOrder());
 console.log(bst.bfsPreOrder());
 
 console.log('Size is: ' + bst.size())
+
+console.log(bst.LeftView());
+console.log(bst.RightView());
+console.log(bst.LeafNodes());
