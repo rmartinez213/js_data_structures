@@ -1,4 +1,3 @@
-
 function questions() {
     var menuQuestion = [
         {

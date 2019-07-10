@@ -14,7 +14,11 @@ class BST{
 
 	size() {
 		return this.count;
-	}
+    }
+
+    isEmpty() {
+        return this.root === null
+    }
 
 	insert(value) {
 		this.count++;
@@ -139,6 +143,7 @@ class BST{
 		return result;
     }
 
+    //Prints the left most nodes
     LeftView() {
         var result = [];
         var current = this.root
@@ -162,6 +167,7 @@ class BST{
         return result;
     }
 
+    //Prints the right most nodes
     RightView() {
         var result = [];
         var current = this.root;
@@ -185,6 +191,7 @@ class BST{
         return result;
     }
 
+    //Prints all the leaf nodes (nodes with no children)
     LeafNodes() {
         var result = [];
 
@@ -204,25 +211,4 @@ class BST{
     }
 }
 
-
-var bst = new BST();
-bst.insert(4);
-bst.insert(2);
-bst.insert(8);
-bst.insert(3);
-bst.insert(10);
-bst.insert(9);
-bst.insert(1);
-console.log(bst.min());
-console.log(bst.max());
-
-console.log(bst.contains(0));
-console.log(bst.bfsInOrder());
-console.log(bst.bfsPostOrder());
-console.log(bst.bfsPreOrder());
-
-console.log('Size is: ' + bst.size())
-
-console.log(bst.LeftView());
-console.log(bst.RightView());
-console.log(bst.LeafNodes());
+module.exports = BST;
