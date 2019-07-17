@@ -211,8 +211,20 @@ class BST{
 	}
 	
 	remove(data){
-        //Reinitialize the modified root node
-        this.root = this.removeData(this.root, data);
+
+		if(this.isEmpty()){
+			return 'List is empty'
+		}
+
+		else if(this.contains()){
+			return 'Value not in BST tree'
+		}
+
+		else{
+			//Reinitialize the modified root node
+			this.root = this.removeData(this.root, data);
+			return 'Deleted ' + data + 'Node'
+		}
     }
 
     removeData(node, key){
