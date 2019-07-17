@@ -208,6 +208,53 @@ class BST{
 
         traverse(this.root);
         return result;
+	}
+	
+	remove(data){
+        //Reinitialize the modified root node
+        this.root = this.removeData(this.root, data);
+    }
+
+    removeData(node, key){
+        
+        if(node === null){
+            return null;
+        }
+        
+        if(key > node.value){
+            node.right = this.removeData(node.right, key);
+            return node;
+        }
+
+        else if(key < node.value){
+            node.left = this.removeData(node.left, key);
+            return node;
+        }
+
+        else{
+
+			//Check to see if the deleted node 
+            if(node.left === null && node.right === null){
+                node = null;
+                return node;
+            }
+            
+            //Check the children
+            if(node.right !== null){
+                node = node.right;
+                return node;
+            }
+
+            else if(node.left !== null){
+                node = node.left;
+                return node;
+			}
+			
+			var aux = this.min(node.right); 
+			node.data = aux.data;
+			node.right = this.removeData(node.right, aux.data); 
+			return node;
+        }
     }
 }
 
