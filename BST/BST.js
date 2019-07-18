@@ -20,7 +20,10 @@ class BST{
         return this.root === null
     }
 
-	insert(value) {
+	insert(userVal) {
+
+		var value = parseInt(userVal);
+
 		this.count++;
 		var newnode = new Node(value);
 
@@ -89,58 +92,79 @@ class BST{
 	//Implementations of Breadth First Search: In-order, Pre-order, Post-order
 	//Left, Root, Right
 	bfsInOrder() {
-		var result = [];
 
-		var traverse = node => {
-
-			if (node.left !== null)
-				traverse(node.left);
-
-			result.push(node.value);
-
-			if (node.right !== null)
-				traverse(node.right);
+		if(this.isEmpty()){
+			return []
 		}
 
-		traverse(this.root);
-		return result;
+		else{
+			var result = [];
+
+			var traverse = node => {
+	
+				if (node.left !== null)
+					traverse(node.left);
+	
+				result.push(node.value);
+	
+				if (node.right !== null)
+					traverse(node.right);
+			}
+	
+			traverse(this.root);
+			return result;
+		}
 	}
 
 	//Root, Left, Right
 	bfsPreOrder() {
-		var result = [];
 
-		var traverse = node => {
-
-			result.push(node.value);
-
-			if (node.left !== null)
-				traverse(node.left);
-
-			if (node.right !== null)
-				traverse(node.right);
+		if(this.isEmpty()){
+			return []
 		}
 
-		traverse(this.root);
-		return result;
+		else{
+			var result = [];
+
+			var traverse = node => {
+
+				result.push(node.value);
+
+				if (node.left !== null)
+					traverse(node.left);
+
+				if (node.right !== null)
+					traverse(node.right);
+			}
+
+			traverse(this.root);
+			return result;
+		}
 	}
 
 	//Left, Right, Root
 	bfsPostOrder() {
-		var result = [];
-
-		var traverse = node => {
-			if (node.left !== null)
-				traverse(node.left);
-
-			if (node.right !== null)
-				traverse(node.right);
-
-			result.push(node.value);
+		
+		if(this.isEmpty()){
+			return []
 		}
 
-		traverse(this.root);
-		return result;
+		else{
+			var result = [];
+
+			var traverse = node => {
+				if (node.left !== null)
+					traverse(node.left);
+
+				if (node.right !== null)
+					traverse(node.right);
+
+				result.push(node.value);
+			}
+
+			traverse(this.root);
+			return result;
+		}
     }
 
     //Prints the left most nodes
@@ -193,21 +217,28 @@ class BST{
 
     //Prints all the leaf nodes (nodes with no children)
     LeafNodes() {
-        var result = [];
 
-        var traverse = node => {
-            if (node.left !== null)
-                traverse(node.left);
+		if(this.isEmpty()){
+			return [];
+		}
 
-            if (node.right !== null)
-                traverse(node.right);
+		else{
+			var result = [];
 
-            if (node.left === null && node.right === null)
-                result.push(node.value);
-        }
+			var traverse = node => {
+				if (node.left !== null)
+					traverse(node.left);
 
-        traverse(this.root);
-        return result;
+				if (node.right !== null)
+					traverse(node.right);
+
+				if (node.left === null && node.right === null)
+					result.push(node.value);
+			}
+
+			traverse(this.root);
+			return result;
+		}
 	}
 	
 	remove(data){
@@ -216,14 +247,14 @@ class BST{
 			return 'List is empty'
 		}
 
-		else if(this.contains()){
+		else if(!this.contains(data)){
 			return 'Value not in BST tree'
 		}
 
 		else{
 			//Reinitialize the modified root node
 			this.root = this.removeData(this.root, data);
-			return 'Deleted ' + data + 'Node'
+			return 'Deleted: ' + data + '\n' 
 		}
     }
 

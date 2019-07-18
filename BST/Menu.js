@@ -17,12 +17,12 @@ function MenuOutput() {
                 '3 - Delete Node',
                 '4 - Contains',
                 '5 - isEmpty',
-                '4 - View In-Order (Left, Root, Right)', 
-                '5 - View Pre-Order (Root, Left, Right)',
-                '6 - View Post-Order (Left, Right, Root)',
-                '7 - Left View',
-                '8 - Right View',
-                '9 - Display All Leaf Node Values',
+                '6 - View In-Order (Left, Root, Right)', 
+                '7 - View Pre-Order (Root, Left, Right)',
+                '8 - View Post-Order (Left, Right, Root)',
+                '9 - Left View',
+                '10 - Right View',
+                '11 - Display All Leaf Node Values',
                 new inquirer.Separator(),
             ]
         }])
@@ -43,6 +43,7 @@ function MenuOutput() {
 
             else if(ansOutput == 2){
                 console.log('Size is: ' + bst.size() + '\n');
+                console.log(bst)
                 MenuOutput();
             }
 
@@ -50,16 +51,60 @@ function MenuOutput() {
             else if (ansOutput == 3) {
                 inquirer.prompt(questions[1])
                     .then(answers => {
-                        
                         console.log(bst.remove(answers.inputValue1));
-                        
-
                         MenuOutput();
                 })
             }
 
-            else{
-                
+            else if(ansOutput == 4){
+                inquirer.prompt(questions[2])
+                    .then(answers => {
+                        console.log(bst.contains(answers.inputValue2));
+                        console.log();
+                        MenuOutput();
+                })
+            }
+
+            else if(ansOutput == 5){
+                console.log(bst.isEmpty());
+                console.log();
+                MenuOutput();
+            }
+
+            else if(ansOutput == 6){
+                console.log(bst.bfsInOrder());
+                console.log();
+                MenuOutput();
+            }
+
+            else if(ansOutput == 7){
+                console.log(bst.bfsPreOrder());
+                console.log();
+                MenuOutput();
+            }
+
+            else if(ansOutput == 8){
+                console.log(bst.bfsPostOrder());
+                console.log();
+                MenuOutput();
+            }
+
+            else if(ansOutput == 9){
+                console.log(bst.LeftView());
+                console.log();
+                MenuOutput();
+            }
+
+            else if(ansOutput == 10){
+                console.log(bst.RightView());
+                console.log();
+                MenuOutput();
+            }
+
+            else if(ansOutput == 11){
+                console.log(bst.LeafNodes());
+                console.log();
+                MenuOutput();
             }
             
         })
